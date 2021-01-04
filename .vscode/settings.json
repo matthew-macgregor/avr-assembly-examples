@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.shellArgs.linux": [
+        "--rcfile", 
+        "/home/matsu/Documents/Code/avr-assembly-tutorials/dev-env.sh"
+    ]
+}

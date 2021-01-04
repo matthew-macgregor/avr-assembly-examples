@@ -1,0 +1,64 @@
+Notes on AVR Assembly Setup
+
+Setting Up Avra Assembler
+=========================
+
+Download the source code for avra from Github: 
+	
+	git@github.com:Ro5bert/avra.git
+
+To build avra from scratch:
+
+
+	# cd into the root directory and run:
+	make
+
+
+Check Programmer Connection
+===========================
+
+to check the device/programmer are working:
+
+	avrdude -c usbasp -p m168p
+
+-c	programmer type
+-p	AVR part/device
+
+If you call avrdude -c without the part, it will give you 
+a list of available AVR device strings to choose from.
+
+Note, my chips that look like m168p read as m168. Shrug?
+
+Check Fuse Settings
+===================
+
+You can check the fuse settings like:
+
+	avrdude -c usbasp -v -p m168
+
+I noticed that it won't output information about the fuses if 
+it thinks that the chip is wrong, however.
+
+Flashing the Chip
+=================
+
+	avrdude -c usbasp -p m168 -U flash:w:hello.hex
+
+Obviously, change these settings however it makes sense for your
+particular setup.
+
+AVR Instruction Notes
+=====================
+
+	ldi rd,imm 
+
+Loads an 8-bit number (0-255) into an upper half register (16-31)
+
+	out rd,r
+
+Copies a number from a working register to an i/0 register.
+
+	rjmp label
+
+Jumps to the label. The label cannot be more than 204 instructions away. This is a "relative" jump.
+
