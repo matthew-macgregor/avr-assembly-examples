@@ -17,9 +17,10 @@ To build avra from scratch:
 Check Programmer Connection
 ===========================
 
-to check the device/programmer are working:
+To check the device/programmer are working, run the command
+below (adjust for your programmer and chip):
 
-	avrdude -c usbasp -p m168p
+	avrdude -c usbasp -p m168
 
 -c	programmer type
 -p	AVR part/device
@@ -39,13 +40,32 @@ You can check the fuse settings like:
 I noticed that it won't output information about the fuses if 
 it thinks that the chip is wrong, however.
 
+Building
+========
+
+To build using avra is trivial:
+
+	avra filename.asm
+
 Flashing the Chip
 =================
 
 	avrdude -c usbasp -p m168 -U flash:w:hello.hex
+	
+You may also want to set the bitrate:
+
+	 -b 57600
 
 Obviously, change these settings however it makes sense for your
 particular setup.
+
+A Note on Power
+===============
+
+I noticed that the AVR chips can be a bit sensitive about VCC
+while being programmed, and that power via USB / programmer
+isn't always reliable. If something isn't working, try using 
+a real power supply.
 
 AVR Instruction Notes
 =====================

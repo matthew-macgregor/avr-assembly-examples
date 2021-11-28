@@ -21,12 +21,13 @@
 .list
 
 ; Constants
-.equ DDRB 	= 0x04
-.equ PORTB	= 0x05
+.equ DDRB 		= 0x04
+.equ PORTB		= 0x05
+.equ PINS_HI		= 0x57
 
-	ldi r16,0x41		; set pins
-	out DDRB,r16		; set data direction to out
-	out PORTB,r16		; set pin to high on portb
+ldi r16,PINS_HI		; set pins
+out DDRB,r16		; set data direction to out
+out PORTB,r16		; set pin to high on portb
 
 ; main loop
 start:
