@@ -67,6 +67,57 @@ while being programmed, and that power via USB / programmer
 isn't always reliable. If something isn't working, try using 
 a real power supply.
 
+I/O Registers
+=============
+
+AVR I/O registers are 64 bytes in data memory just after the 32
+general working registers (0x20 - 0x5F). They include the PORT,
+PIN, and DDR registers that control the m/c's pins.
+
+Note that the Status Register (SREG) is one of the I/O registers.
+
+AVR assembly language has instructions just for dealing with 
+the I/O registers:
+
+`in`		In from I/O location
+`out`		Out from I/O location
+`cbi`		Clear a bit in an I/O register (first 32 registers)
+`sbi`		Set a bit in an I/O register (first 32 registers)
+`sbic`		Skip if bit in I/O register is 0
+`sbis`		Skip if bit in I/O register is 1
+
+`cbi` and `sbi` only work with the first 32 I/O registers. All
+PORT, PIN and DDR registers are in the first 32 memory locations.
+`c/sbi` are useful for setting output to pins.
+
+`cbi` and `sbi` use a pin number and not a mask, so you can only
+set one pin at a time. `in/out` may be more efficient.
+
+`sbis/sbic` can skip the next instruction based on a bit in an 
+I/O register, so you can use this to check the state of a pin.
+
+Examples:
+
+```asm
+in	r15, DDRB	; load DDRB to r15
+out	DDRB, r0	; load r0 to DDRB
+```
+
+I/O Addresses
+=============
+
+There are Data Memory addresses, and there are I/O addresses.
+I/O addresses are mapped to data memory addresses, in order to
+be able to more efficiently access (some) I/O addresses.
+
+Data memory address `0x20` maps to I/O `0x00`.
+
+You can see how this is useful: by renumbering the I/O addresses,
+it allows access to the first 32 in 5 bits.
+
+### References
+- http://www.rjhcoding.com/avr-asm-io.php
+
 AVR Instruction Notes
 =====================
 
@@ -76,7 +127,7 @@ Loads an 8-bit number (0-255) into an upper half register (16-31)
 
 	out rd,r
 
-Copies a number from a working register to an i/0 register.
+Copies a number from a working register to an I/O register.
 
 	rjmp label
 
