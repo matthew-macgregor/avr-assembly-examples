@@ -1,5 +1,5 @@
-Project Intent
---------------
+AVR Assembly: Project Intent
+============================
 
 This project consists of notes and examples that I worked on
 while learning AVR assembly language programming for the first
@@ -17,15 +17,15 @@ I've used a breadboard set up as per the example on page 56 of
 ![Development Board](atmega168-devboard-annotated.jpeg)
 
 Notes on AVR Assembly Setup
----------------------------
+===========================
 
 
 Setting Up Avra Assembler
-=========================
+-------------------------
 
 Download the source code for avra from Github: 
 	
-	`git@github.com:Ro5bert/avra.git`
+	git@github.com:Ro5bert/avra.git
 
 To build avra from scratch:
 
@@ -41,7 +41,7 @@ To check the device/programmer are working, run the command
 below (adjust for your programmer and chip):
 
 ```
-	avrdude -c usbasp -p m168
+avrdude -c usbasp -p m168
 
 -c	programmer type
 -p	AVR part/device
@@ -57,7 +57,7 @@ Check Fuse Settings
 
 You can check the fuse settings like:
 
-	`avrdude -c usbasp -v -p m168`
+	avrdude -c usbasp -v -p m168
 
 I noticed that it won't output information about the fuses if 
 it thinks that the chip is wrong, however.
@@ -67,16 +67,16 @@ Building
 
 To build using avra is trivial:
 
-	`avra filename.asm`
+	avra filename.asm
 
 Flashing the Chip
 =================
 
-	`avrdude -c usbasp -p m168 -U flash:w:hello.hex`
+	avrdude -c usbasp -p m168 -U flash:w:hello.hex
 	
 You may also want to set the bitrate:
 
-	`-b 57600`
+	-b 57600
 
 Obviously, change these settings however it makes sense for your
 particular setup.
@@ -153,15 +153,17 @@ efficient.
 AVR Instruction Notes
 =====================
 
-	`ldi rd, imm`
+(Random and incomplete)
+
+	ldi rd, imm
 
 Loads an 8-bit number (0-255) into an upper half register (16-31)
 
-	`out rd, r`
+	out rd, r
 
 Copies a number from a working register to an I/O register.
 
-	`rjmp label`
+	rjmp label
 
 Jumps to the label. The label cannot be more than 204 instructions away. This is a "relative" jump.
 
